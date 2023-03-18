@@ -1,0 +1,57 @@
+{% extends "network/layout2.html" %}
+
+{% load static %}
+
+{% block title %}
+    Sign In | Network
+{% endblock %}
+
+{% block body %}
+<div class="modal modal-signin position-static d-block py-5" tabindex="-1" role="dialog" id="modalSignin">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <!-- <h1 class="modal-title fs-5" >Modal title</h1> -->
+        <h1 class="fw-bold mb-0 fs-2">Войти в miSchool</h1>
+      </div>
+
+      <div class="modal-body p-2 pt-0">
+        <form action="{% url 'login' %}" method="post" id="signin-form" style="width: 100%;margin-bottom: 5vh;">
+            {% csrf_token %}
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control rounded-3"  name="username" placeholder="schoolName" autocomplete="off" autofocus>
+            <label for="floatingInput">schoolName</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control rounded-3" id="floatingPassword" placeholder="Пароль" type="password" name="password"  autocomplete="off">
+            <label for="floatingPassword">Пароль</label>
+          </div>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Войти</button>
+          <small class="text-muted"> Don't have an account?&nbsp;&nbsp;<a href="{% url 'register' %}">Войти</a></small>
+          <hr class="my-4">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".inp").forEach(input => {
+                input.addEventListener('input', () => {
+                    if ((document.querySelector('.usrnm').value.length === 0) || (document.querySelector('.pswd').value.length === 0)) {
+                        document.querySelector('input[type="submit"]').disabled = true;
+                    }
+                    else {
+                        document.querySelector('input[type="submit"]').disabled = false;
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+
+
+
